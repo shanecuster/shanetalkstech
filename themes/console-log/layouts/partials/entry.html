@@ -1,0 +1,16 @@
+{{ $hash := printf "%.7s" (crypto.SHA1 .Permalink) }}
+{{ $terms := .Params.tags | default .Params.categories | default slice }}
+<article class="entry">
+  <div class="entry-meta">
+    <span class="hash">#{{ $hash }}</span>
+    <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+  </div>
+  <div class="entry-body">
+    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <p>{{ .Summary | plainify | truncate 180 }}</p>
+    <div class="tag-row">
+      {{ range first 3 $terms }}<span class="tag">{{ . }}</span>{{ end }}
+      <span class="diffstat"><span class="plus">+{{ .WordCount }}</span> <span class="minus">-0</span></span>
+    </div>
+  </div>
+</article>

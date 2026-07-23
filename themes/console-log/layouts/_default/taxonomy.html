@@ -1,0 +1,50 @@
+{{ define "main" }}
+{{ if eq .Kind "term" }}
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ $paginator := .Paginate $pages }}
+  {{ $total := len $pages }}
+
+  <section class="hero" style="padding:64px 24px 32px;">
+    <div class="hero-eyebrow">ls {{ .Type }}/{{ .Data.Term }}/<span class="cursor"></span></div>
+    <h1 class="title" style="font-size:clamp(1.8rem, 4.5vw, 2.6rem);">{{ .Title }}</h1>
+  </section>
+
+  <div class="section-head">
+    <h2>{{ .Data.Term }}<span>_</span>log</h2>
+    <span class="count">showing {{ len $paginator.Pages }} of {{ $total }}</span>
+  </div>
+
+  {{ if $paginator.Pages }}
+  <div class="log">
+    {{ range $paginator.Pages }}{{ partial "entry.html" . }}{{ end }}
+  </div>
+  {{ else }}
+  <div class="empty-state">$ ls -la — nothing here yet.</div>
+  {{ end }}
+
+  {{ if gt $paginator.TotalPages 1 }}
+  <div class="pagination">
+    {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">&larr; newer</a>{{ else }}<span></span>{{ end }}
+    {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">older &rarr;</a>{{ end }}
+  </div>
+  {{ end }}
+{{ else }}
+  {{ $terms := .Data.Terms.ByCount }}
+  {{ $n := len $terms }}
+
+  <section class="hero" style="padding:64px 24px 32px;">
+    <div class="hero-eyebrow">ls {{ .Title | lower }}/<span class="cursor"></span></div>
+    <h1 class="title" style="font-size:clamp(1.8rem, 4.5vw, 2.6rem);">{{ .Title }}</h1>
+  </section>
+
+  <div class="tree-section" style="margin-top:0; border-top:none;">
+    <div class="section-head" style="padding:0; margin-bottom:14px;">
+      <h2>{{ $n }}<span>_</span>terms</h2>
+    </div>
+    <div class="tree">
+      {{ range $i, $t := $terms }}<span class="branch">{{ if eq (add $i 1) $n }}└──{{ else }}├──{{ end }}</span> <a href="{{ $t.Page.RelPermalink }}">{{ $t.Term }}/</a> <span class="n">{{ $t.Count }} post{{ if ne $t.Count 1 }}s{{ end }}</span><br>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}
+{{ end }}

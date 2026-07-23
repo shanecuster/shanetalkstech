@@ -1,0 +1,31 @@
+{{ define "main" }}
+{{ $pages := .Pages.ByDate.Reverse }}
+{{ $paginator := .Paginate $pages }}
+{{ $total := len $pages }}
+
+<section class="hero" style="padding:64px 24px 32px;">
+  <div class="hero-eyebrow">ls {{ .Title | lower }}/<span class="cursor"></span></div>
+  <h1 class="title" style="font-size:clamp(1.8rem, 4.5vw, 2.6rem);">{{ .Title }}</h1>
+  {{ with .Content }}<div class="hero-sub">{{ . }}</div>{{ end }}
+</section>
+
+<div class="section-head">
+  <h2>{{ .Title | lower }}<span>_</span>log</h2>
+  <span class="count">showing {{ len $paginator.Pages }} of {{ $total }}</span>
+</div>
+
+{{ if $paginator.Pages }}
+<div class="log">
+  {{ range $paginator.Pages }}{{ partial "entry.html" . }}{{ end }}
+</div>
+{{ else }}
+<div class="empty-state">$ ls -la — nothing here yet.</div>
+{{ end }}
+
+{{ if gt $paginator.TotalPages 1 }}
+<div class="pagination">
+  {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">&larr; newer</a>{{ else }}<span></span>{{ end }}
+  {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">older &rarr;</a>{{ end }}
+</div>
+{{ end }}
+{{ end }}

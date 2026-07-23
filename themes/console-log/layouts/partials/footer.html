@@ -1,0 +1,13 @@
+<footer>
+  <div class="footer-inner">
+    <div class="prompt-line"><b>{{ site.Params.chromePath | default "shane@hyprcabin" }}</b> ~ $ echo "thanks for reading"</div>
+    <div class="footer-meta">
+      <span>{{ site.Title }} &mdash; built with Hugo</span>
+      <span>
+        <a href="{{ "index.xml" | absURL }}">rss</a>
+        {{ with site.Params.sourceURL }} &middot; <a href="{{ . }}">source</a>{{ end }}
+        &middot; <a href="{{ "now/" | absURL }}">now page</a>
+      </span>
+    </div>
+  </div>
+</footer>

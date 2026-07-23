@@ -1,0 +1,35 @@
+{{ define "main" }}
+{{ $posts := where site.RegularPages "Section" "posts" }}
+{{ $posts = $posts.ByDate.Reverse }}
+{{ $total := len $posts }}
+{{ $recent := first 5 $posts }}
+{{ $shown := len $recent }}
+{{ $catCount := len site.Taxonomies.categories }}
+
+<section class="hero">
+  <div class="hero-eyebrow">cat welcome.txt<span class="cursor"></span></div>
+  <h1 class="title">{{ site.Params.titlePrefix | default "shanetalks" }}<span class="hi">{{ site.Params.titleHighlight | default "tech" }}</span></h1>
+  <p class="hero-sub">{{ site.Params.tagline }}</p>
+  <div class="hero-stats">
+    <span><b>{{ $total }}</b> posts</span>
+    <span><b>{{ $catCount }}</b> categories</span>
+    {{ with $posts }}<span>last commit <b>{{ (index . 0).Date | time.Format "January 2, 2006" }}</b></span>{{ end }}
+  </div>
+</section>
+
+<div class="section-head">
+  <h2>recent<span>_</span>posts</h2>
+  <span class="count">showing {{ $shown }} of {{ $total }}</span>
+</div>
+
+<div class="log">
+  {{ range $recent }}{{ partial "entry.html" . }}{{ end }}
+</div>
+
+<div class="tree-section">
+  <div class="section-head" style="padding:0; margin-bottom:14px;">
+    <h2>ls<span>_</span>categories/</h2>
+  </div>
+  {{ partial "category-tree.html" . }}
+</div>
+{{ end }}

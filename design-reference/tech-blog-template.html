@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>shanetalkstech</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #14171c;
+    --surface: #1b1f26;
+    --surface-2: #21262e;
+    --line: #2c323b;
+    --text: #e4e7ec;
+    --muted: #8b93a1;
+    --dim: #5c6472;
+    --accent: #7dd3b0;   /* sage-teal */
+    --accent-2: #e8a33d; /* warm amber */
+    --danger: #d9776b;   /* muted rust, used sparingly like a diff-minus */
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent); color:#0d1310;}
+  a{color:inherit; text-decoration:none;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+
+  /* ---------- Top chrome bar ---------- */
+  .chrome{
+    border-bottom:1px solid var(--line);
+    background:var(--surface);
+    position:sticky; top:0; z-index:50;
+  }
+  .chrome-inner{
+    max-width:840px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .dots{display:flex; gap:6px; flex-shrink:0;}
+  .dots span{width:9px; height:9px; border-radius:50%; background:var(--dim);}
+  .chrome-path{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; color:var(--muted);
+    flex:1;
+  }
+  .chrome-path b{color:var(--text); font-weight:500;}
+  nav{display:flex; gap:22px; font-family:'JetBrains Mono', monospace; font-size:13px;}
+  nav a{color:var(--muted); transition:color .15s;}
+  nav a:hover{color:var(--accent);}
+  .menu-toggle{display:none; background:none; border:none; color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:18px; cursor:pointer;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    max-width:840px; margin:0 auto;
+    padding:88px 24px 64px;
+  }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; color:var(--accent);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:20px;
+  }
+  .hero-eyebrow::before{content:"$"; color:var(--dim);}
+  .cursor{
+    display:inline-block; width:8px; height:16px;
+    background:var(--accent); animation:blink 1.1s steps(1) infinite;
+    vertical-align:middle; margin-left:2px;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  h1.title{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:clamp(2.1rem, 5.5vw, 3.4rem);
+    letter-spacing:-0.02em;
+    line-height:1.1;
+    margin-bottom:20px;
+  }
+  h1.title .dim{color:var(--dim);}
+  h1.title .hi{color:var(--accent);}
+
+  .hero-sub{
+    color:var(--muted); font-size:1.05rem; max-width:56ch;
+    margin-bottom:28px;
+  }
+
+  .hero-stats{
+    display:flex; gap:28px; flex-wrap:wrap;
+    font-family:'JetBrains Mono', monospace; font-size:13px;
+    color:var(--dim); border-top:1px dashed var(--line); padding-top:18px;
+  }
+  .hero-stats b{color:var(--muted); font-weight:500;}
+
+  /* ---------- Section labels ---------- */
+  .section-head{
+    max-width:840px; margin:0 auto; padding:0 24px;
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:6px;
+  }
+  .section-head h2{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px; text-transform:lowercase;
+    color:var(--muted); font-weight:500;
+    letter-spacing:0.02em;
+  }
+  .section-head h2 span{color:var(--dim);}
+  .section-head .count{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--dim);}
+
+  /* ---------- Post log ---------- */
+  .log{
+    max-width:840px; margin:0 auto; padding:18px 24px 40px;
+  }
+  .entry{
+    display:grid;
+    grid-template-columns:96px 1fr;
+    gap:20px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    transition:padding-left .15s ease;
+  }
+  .entry:hover{padding-left:6px;}
+  .entry:first-child{padding-top:0;}
+
+  .entry-meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px; color:var(--dim);
+    display:flex; flex-direction:column; gap:6px;
+    padding-top:3px;
+  }
+  .hash{color:var(--accent-2);}
+
+  .entry-body h3{
+    font-family:'JetBrains Mono', monospace;
+    font-size:1.12rem; font-weight:600;
+    margin-bottom:8px; letter-spacing:-0.01em;
+  }
+  .entry-body h3 a{transition:color .15s;}
+  .entry-body h3 a:hover{color:var(--accent);}
+
+  .entry-body p{color:var(--muted); font-size:.95rem; max-width:64ch; margin-bottom:12px;}
+
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .tag{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    padding:3px 8px; border-radius:3px;
+    background:var(--surface-2); color:var(--accent);
+    border:1px solid var(--line);
+  }
+  .diffstat{font-family:'JetBrains Mono', monospace; font-size:11.5px;}
+  .diffstat .plus{color:var(--accent);}
+  .diffstat .minus{color:var(--danger);}
+
+  @media (max-width:600px){
+    .entry{grid-template-columns:1fr; gap:10px;}
+    .entry-meta{flex-direction:row; gap:14px;}
+  }
+
+  /* ---------- Sidebar tree (categories) ---------- */
+  .tree-section{
+    max-width:840px; margin:40px auto 0; padding:32px 24px;
+    border-top:1px solid var(--line);
+  }
+  .tree{
+    font-family:'JetBrains Mono', monospace; font-size:13.5px;
+    color:var(--muted); line-height:2.1;
+  }
+  .tree .branch{color:var(--dim);}
+  .tree a{color:var(--muted); transition:color .15s;}
+  .tree a:hover{color:var(--accent);}
+  .tree .n{color:var(--dim); font-size:11.5px;}
+
+  /* ---------- Footer / subscribe ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    background:var(--surface);
+    margin-top:40px;
+  }
+  .footer-inner{
+    max-width:840px; margin:0 auto; padding:48px 24px 40px;
+  }
+  .prompt-line{
+    font-family:'JetBrains Mono', monospace; font-size:14px;
+    color:var(--muted); margin-bottom:18px;
+  }
+  .prompt-line b{color:var(--accent);}
+
+  .footer-meta{
+    margin-top:32px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--dim);
+  }
+  .footer-meta a{color:var(--dim);}
+  .footer-meta a:hover{color:var(--accent);}
+
+  @media (max-width: 720px){
+    nav{display:none;}
+    .menu-toggle{display:block;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="chrome">
+    <div class="chrome-inner">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="chrome-path"><b>shane@hyprcabin</b>:~/blog$</div>
+      <nav>
+        <a href="#">posts</a>
+        <a href="#">tags</a>
+        <a href="#">now</a>
+        <a href="#">about</a>
+      </nav>
+      <button class="menu-toggle">≡</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-eyebrow">cat welcome.txt<span class="cursor"></span></div>
+    <h1 class="title">shanetalks<span class="hi">tech</span></h1>
+    <p class="hero-sub">
+      Field notes from a Wayland desktop, a print farm, and a garage full of sim rigs —
+      written as things get fixed, broken, and rebuilt.
+    </p>
+    <div class="hero-stats">
+      <span><b>41</b> posts</span>
+      <span><b>6</b> categories</span>
+      <span>last commit <b>2 days ago</b></span>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2>recent<span>_</span>posts</h2>
+    <span class="count">showing 5 of 41</span>
+  </div>
+
+  <div class="log">
+
+    <article class="entry">
+      <div class="entry-meta">
+        <span class="hash">#4f9a21c</span>
+        <span>Jul 21, 2026</span>
+      </div>
+      <div class="entry-body">
+        <h3><a href="#">Fixing PrusaSlicer's context menus under XWayland</a></h3>
+        <p>A right-click context menu opening in the wrong corner turned out to be an XWayland
+        coordinate bug — solved with a targeted window rule keyed off the cursor position.</p>
+        <div class="tag-row">
+          <span class="tag">hyprland</span>
+          <span class="tag">xwayland</span>
+          <span class="diffstat"><span class="plus">+22</span> <span class="minus">-4</span></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="entry-meta">
+        <span class="hash">#a13de08</span>
+        <span>Jul 18, 2026</span>
+      </div>
+      <div class="entry-body">
+        <h3><a href="#">Rebuilding my Hyprland config in Lua for 0.55+</a></h3>
+        <p>Porting keybinds, window rules, and layout logic off the old config format —
+        what got cleaner, what got more verbose, and where the Lua API still has rough edges.</p>
+        <div class="tag-row">
+          <span class="tag">hyprland</span>
+          <span class="tag">config</span>
+          <span class="diffstat"><span class="plus">+118</span> <span class="minus">-90</span></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="entry-meta">
+        <span class="hash">#7c2f156</span>
+        <span>Jul 12, 2026</span>
+      </div>
+      <div class="entry-body">
+        <h3><a href="#">TrueNAS Scale vs. Unraid, one rack unit at a time</a></h3>
+        <p>Working through storage pool design, container support, and upgrade paths before
+        committing an AMD Radeon 9060 XT and a stack of drives to a single OS.</p>
+        <div class="tag-row">
+          <span class="tag">homelab</span>
+          <span class="tag">nas</span>
+          <span class="diffstat"><span class="plus">+31</span> <span class="minus">-2</span></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="entry-meta">
+        <span class="hash">#e08b3a1</span>
+        <span>Jul 6, 2026</span>
+      </div>
+      <div class="entry-body">
+        <h3><a href="#">Adding a sequential shifter without breaking the rig</a></h3>
+        <p>Mounting a Moza sequential and a handbrake onto a Wheel Stand 2.0 without fouling
+        the pedal set — plus first impressions running rally stages with both installed.</p>
+        <div class="tag-row">
+          <span class="tag">sim-racing</span>
+          <span class="tag">hardware</span>
+          <span class="diffstat"><span class="plus">+9</span> <span class="minus">-1</span></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="entry-meta">
+        <span class="hash">#2d99f47</span>
+        <span>Jun 29, 2026</span>
+      </div>
+      <div class="entry-body">
+        <h3><a href="#">The amdgpu suspend bug that sent me back to Hyprland</a></h3>
+        <p>A MODE1 reset on deep suspend was crashing the GPU under Niri. The root cause,
+        the s2idle fix, and why it tipped the scale back toward Hyprland.</p>
+        <div class="tag-row">
+          <span class="tag">linux</span>
+          <span class="tag">amdgpu</span>
+          <span class="diffstat"><span class="plus">+14</span> <span class="minus">-3</span></span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="tree-section">
+    <div class="section-head" style="padding:0; margin-bottom:14px;">
+      <h2>ls<span>_</span>categories/</h2>
+    </div>
+    <div class="tree">
+      <span class="branch">├──</span> <a href="#">hyprland/</a> <span class="n">14 posts</span><br>
+      <span class="branch">├──</span> <a href="#">3d-printing/</a> <span class="n">9 posts</span><br>
+      <span class="branch">├──</span> <a href="#">homelab/</a> <span class="n">8 posts</span><br>
+      <span class="branch">├──</span> <a href="#">sim-racing/</a> <span class="n">6 posts</span><br>
+      <span class="branch">├──</span> <a href="#">linux/</a> <span class="n">3 posts</span><br>
+      <span class="branch">└──</span> <a href="#">misc/</a> <span class="n">1 post</span>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="prompt-line"><b>shane@hyprcabin</b> ~ $ echo "thanks for reading"</div>
+      <div class="footer-meta">
+        <span>shanetalkstech — built with Hugo</span>
+        <span><a href="#">rss</a> · <a href="#">source</a> · <a href="#">now page</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+{{ $cats := site.Taxonomies.categories.ByCount }}
+{{ $n := len $cats }}
+<div class="tree">
+  {{ range $i, $t := $cats }}<span class="branch">{{ if eq (add $i 1) $n }}└──{{ else }}├──{{ end }}</span> <a href="{{ $t.Page.RelPermalink }}">{{ $t.Term }}/</a> <span class="n">{{ $t.Count }} post{{ if ne $t.Count 1 }}s{{ end }}</span><br>
+  {{ end }}
+</div>
