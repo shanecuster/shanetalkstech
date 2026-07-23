@@ -1,0 +1,18 @@
+baseURL = 'https://shanetalkstech.com/'
+locale = 'en-us'
+title = 'shanetalkstech'
+theme = 'console-log'
+
+[taxonomies]
+category = 'categories'
+tag = 'tags'
+
+[pagination]
+pagerSize = 10
+
+[params]
+chromePath = 'shane@hyprcabin'
+titlePrefix = 'shanetalks'
+titleHighlight = 'tech'
+tagline = 'Field notes from a Wayland desktop, a print farm, and a garage full of sim rigs — written as things get fixed, broken, and rebuilt.'
+description = 'Field notes on Linux, 3D printing, homelab, and tech certifications.'
