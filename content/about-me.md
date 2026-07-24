@@ -1,7 +1,7 @@
 ---
 title: "About Me"
 date: "2025-09-20T01:54:04.000Z"
-coverImage: "Shane-Profile-Picture-Blurred.jpeg"
+coverImage: "ShaneCusterAsciiArt.png"
 slug: "about-me"
 ---
 
