@@ -1,0 +1,34 @@
+{{ $posts := where site.RegularPages "Type" "posts" }}
+{{ $posts = $posts.ByDate.Reverse }}
+{{ $recentPosts := $posts | first 5 }}
+
+{{ $allTags := slice }}
+{{ range $recentPosts }}
+  {{ range .Params.tags }}
+    {{ $allTags = $allTags | append . }}
+  {{ end }}
+{{ end }}
+
+{{ $counts := newScratch }}
+{{ range $allTags }}
+  {{ $counts.Add . 1 }}
+{{ end }}
+
+{{ $uniqueTags := uniq $allTags }}
+{{ $tagData := slice }}
+{{ range $uniqueTags }}
+  {{ $tagData = $tagData | append (dict "term" . "count" ($counts.Get .)) }}
+{{ end }}
+
+{{ $tagData = sort $tagData "term" "asc" }}
+{{ $sorted := sort $tagData "count" "desc" }}
+{{ $n := len $sorted }}
+
+<div class="tree">
+  {{ if eq $n 0 }}
+    <span class="n">no tags on recent posts yet</span>
+  {{ else }}
+    {{ range $i, $t := $sorted }}<span class="branch">{{ if eq (add $i 1) $n }}└──{{ else }}├──{{ end }}</span> {{ with site.GetPage (printf "/tags/%s" ($t.term | urlize)) }}<a href="{{ .RelPermalink }}">{{ $t.term }}/</a>{{ else }}<span>{{ $t.term }}/</span>{{ end }} <span class="n">{{ $t.count }} post{{ if ne $t.count 1 }}s{{ end }}</span><br>
+    {{ end }}
+  {{ end }}
+</div>
