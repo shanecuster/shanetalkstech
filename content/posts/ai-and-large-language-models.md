@@ -12,7 +12,7 @@ It seems that everything in the technology field is geard towards AI now. Every 
 
 According to Chapter 9 of Stanfords 2026 AI Index Report, 59% of people feel that AI offers more benefits than drawbacks.
 
-https://hai.stanford.edu/ai-index/2026-ai-index-report/public-opinion
+[Stanford University Human-Centered Artificial Intelligence](https://hai.stanford.edu/ai-index/2026-ai-index-report/public-opinion)
 
 Personally, I have heard both sides opinions on it. Those that say use it, and those that say avoid it.
 
@@ -40,4 +40,4 @@ This is only the beginning.
 
 Until next time.
 
-shane@hyprcabin ~ $ echo "thanks for reading
+shane@hyprcabin ~ $ echo "thanks for reading"
