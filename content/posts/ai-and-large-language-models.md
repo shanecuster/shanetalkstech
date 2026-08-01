@@ -2,7 +2,7 @@
 title: "AI and Large Language Models"
 date: "2026-07-25T00:00:00.000Z"
 categories:
-  - "technology"
+  - "ai"
 tags:
   - "ai"
 slug: "ai-and-large-language-models"
