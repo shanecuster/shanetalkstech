@@ -2,13 +2,14 @@
   <div class="chrome-inner">
     <div class="dots"><span></span><span></span><span></span></div>
     <div class="chrome-path"><b>{{ site.Params.chromePath | default "shane@hyprcabin" }}</b>:~/blog$</div>
-    <nav>
-      <a href="{{ "/" | absURL }}"{{ if .IsHome }} class="active"{{ end }}>home</a>
-      <a href="{{ "posts/" | absURL }}"{{ if eq .Section "posts" }} class="active"{{ end }}>posts</a>
-      <a href="{{ "tags/" | absURL }}"{{ if eq .Section "tags" }} class="active"{{ end }}>tags</a>
-      <a href="{{ "contact/" | absURL }}"{{ if eq .RelPermalink (relURL "contact/") }} class="active"{{ end }}>contact</a>
-      <a href="{{ "about-me/" | absURL }}"{{ if eq .RelPermalink (relURL "about-me/") }} class="active"{{ end }}>about</a>
+    <nav id="site-nav">
+      <a href="{{ "/" | relURL }}"{{ if .IsHome }} class="active"{{ end }}>home</a>
+      <a href="{{ "posts/" | relURL }}"{{ if eq .Section "posts" }} class="active"{{ end }}>posts</a>
+      <a href="{{ "tags/" | relURL }}"{{ if eq .Section "tags" }} class="active"{{ end }}>tags</a>
+      <a href="{{ "contact/" | relURL }}"{{ if eq .RelPermalink (relURL "contact/") }} class="active"{{ end }}>contact</a>
+      <a href="{{ "about-me/" | relURL }}"{{ if eq .RelPermalink (relURL "about-me/") }} class="active"{{ end }}>about</a>
+      <a href="{{ "search/" | relURL }}"{{ if eq .Section "search" }} class="active"{{ end }}>search</a>
     </nav>
-    <button class="menu-toggle" aria-label="Menu">&#8801;</button>
+    <button class="menu-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">&#8801;</button>
   </div>
 </div>

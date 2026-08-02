@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="hero" style="padding:64px 24px 32px;">
+  <div class="hero-eyebrow">grep -r &lt;query&gt; .<span class="cursor"></span></div>
+  <h1 class="title" style="font-size:clamp(1.8rem, 4.5vw, 2.6rem);">{{ .Title }}</h1>
+  <p class="hero-sub">Search posts, tags, and pages across the site.</p>
+</section>
+
+<div class="search-box-wrap">
+  <label class="search-prompt" for="search-input">
+    <span class="search-prompt-sign">$</span>
+    <input type="text" id="search-input" class="search-input" placeholder="search_" autocomplete="off" spellcheck="false">
+  </label>
+</div>
+
+<div class="section-head" id="search-status" style="display:none;">
+  <h2>search<span>_</span>results</h2>
+  <span class="count" id="search-count"></span>
+</div>
+
+<div class="log" id="search-results"></div>
+<div class="empty-state" id="search-empty" style="display:none;"></div>
+
+<script type="module" src="{{ "js/search.js" | relURL }}"></script>
+{{ end }}

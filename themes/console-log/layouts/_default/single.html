@@ -5,7 +5,8 @@
   <header class="post-header">
     <div class="entry-meta">
       <span class="hash">#{{ $hash }}</span>
-      <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+      <span data-pagefind-meta="date">{{ .Date.Format "Jan 2, 2006" }}</span>
+      <span class="read-time">{{ .ReadingTime }} min read</span>
     </div>
     <h1 class="title">{{ .Title }}</h1>
     <div class="tag-row">

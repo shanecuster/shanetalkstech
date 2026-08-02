@@ -4,7 +4,7 @@
     <div class="footer-meta">
       <span>{{ site.Title }} &mdash; built with Hugo</span>
       <span>
-        <a href="{{ "index.xml" | absURL }}">rss</a>
+        <a href="{{ "index.xml" | relURL }}">rss</a>
         {{ with site.Params.sourceURL }} &middot; <a href="{{ . }}">source</a>{{ end }}
       </span>
     </div>
