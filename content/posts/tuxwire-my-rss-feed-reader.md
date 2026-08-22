@@ -24,6 +24,8 @@ I read a lot of articles with walkthroughs I want to try or apps I want to insta
 
 So I decided to build the tool I actually wanted.
 
+![](/images/tuxwire.png)
+
 ## What It Does
 
 I originally set out to build something just for Linux news. Partway through, I thought: *why stop at Linux?* So tuxwire grew into a full RSS reader for any feed — Linux news is just my primary use case.
