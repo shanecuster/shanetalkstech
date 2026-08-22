@@ -24,7 +24,7 @@ I read a lot of articles with walkthroughs I want to try or apps I want to insta
 
 So I decided to build the tool I actually wanted.
 
-![](/images/tuxwire.png)
+{{< figure src="/images/tuxwire.png" link="/images/tuxwire.png" target="_blank" rel="noopener" alt="tuxwire terminal interface" caption="Click to view" >}}
 
 ## What It Does
 
