@@ -1,0 +1,8 @@
+{{- /*
+  phone: one phone screenshot inside a {{< phones >}} row.
+  Params: src (a file in static/images/projects/), alt, caption (optional).
+*/ -}}
+<figure>
+  <img src="{{ printf "images/projects/%s" (.Get "src") | relURL }}" alt="{{ .Get "alt" }}" loading="lazy">
+  {{ with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
