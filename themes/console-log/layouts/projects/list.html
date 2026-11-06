@@ -1,0 +1,30 @@
+{{- /*
+  The /projects/ page: a short intro, then a tree with one line per
+  project (name links to its page, then a one-line description from the
+  page's front matter). Projects are ordered by their `weight`.
+*/ -}}
+{{ define "main" }}
+{{ $projects := .Pages.ByWeight }}
+{{ $count := len $projects }}
+
+<section class="hero" style="padding:64px 24px 32px;">
+  <div class="hero-eyebrow">ls projects/<span class="cursor"></span></div>
+  <h1 class="title" style="font-size:clamp(1.8rem, 4.5vw, 2.6rem);">{{ .Title }}</h1>
+  {{ with .Content }}<div class="hero-sub">{{ . }}</div>{{ end }}
+</section>
+
+<div class="section-head">
+  <h2>projects<span>_</span>list</h2>
+  <span class="count">{{ $count }} projects</span>
+</div>
+
+<div class="proj-list">
+  {{ range $i, $p := $projects }}
+  <div>
+    <span class="branch">{{ if eq (add $i 1) $count }}└──{{ else }}├──{{ end }}</span>
+    <a href="{{ $p.RelPermalink }}">{{ $p.Title }}/</a>
+    <span class="desc">{{ $p.Params.description }}</span>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

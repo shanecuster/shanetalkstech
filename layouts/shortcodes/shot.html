@@ -1,0 +1,10 @@
+{{- /*
+  shot: a full-width screenshot with a small caption underneath.
+  Params: src (a file in static/images/projects/), alt (description for
+  screen readers), caption (optional text shown under the image).
+  Example: {{< shot src="tuxwire-tui-main.png" alt="..." caption="..." >}}
+*/ -}}
+<figure class="shot">
+  <img src="{{ printf "images/projects/%s" (.Get "src") | relURL }}" alt="{{ .Get "alt" }}" loading="lazy">
+  {{ with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
