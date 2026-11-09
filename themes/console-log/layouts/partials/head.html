@@ -8,3 +8,14 @@
 {{ end }}
 <script data-goatcounter="https://shanetalkstech.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+
+{{/* Tells Google the one real address for this page.
+     .Permalink comes from baseURL, so it's https with a trailing slash. */}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{/* Keeps tag and category list pages out of Google while you have few posts.
+     "follow" still lets Google crawl the posts those pages link to. */}}
+{{ if in (slice "taxonomy" "term") .Kind }}
+<meta name="robots" content="noindex, follow">
+{{ end }}
+
